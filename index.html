@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carvão Connect</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6ff;
+      --card: rgba(255, 255, 255, 0.92);
+      --accent: #0f172a;
+      --muted: #60729a;
+      --line: rgba(99, 123, 180, 0.16);
+      --gradient: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0));
+      --primary: #2563eb;
+      --primary-soft: #e0e7ff;
+      --shadow: 0 26px 48px rgba(37, 99, 235, 0.14);
+      font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f8faff 0%, #eef2ff 100%);
+      color: var(--accent);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header,
+    main,
+    footer {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 56px 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 24px;
+      letter-spacing: 0.02em;
+      transition: color 0.2s ease;
+    }
+
+    header nav a:hover {
+      color: var(--primary);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.12);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 16px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      padding: 64px 0 96px;
+      display: grid;
+      gap: 40px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 62px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .hero p {
+      max-width: 560px;
+      font-size: 19px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 26px;
+      border-radius: 999px;
+      border: none;
+      color: #fff;
+      background: var(--primary);
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-secondary {
+      background: #fff;
+      color: var(--accent);
+      border: 1px solid rgba(37, 99, 235, 0.18);
+      box-shadow: none;
+    }
+
+    .cta-secondary:hover {
+      box-shadow: 0 20px 36px rgba(15, 23, 42, 0.08);
+    }
+
+    .preview-card {
+      width: 100%;
+      border-radius: 26px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 36px;
+      display: grid;
+      gap: 16px;
+      box-shadow: 0 28px 52px rgba(15, 23, 42, 0.08);
+    }
+
+    .preview-card h2 {
+      font-size: 24px;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .preview-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    section {
+      padding: 72px 0;
+      border-top: 1px solid var(--line);
+      background: transparent;
+    }
+
+    section:first-of-type {
+      border-top: none;
+    }
+
+    .section-title {
+      margin-bottom: 32px;
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(37, 99, 235, 0.12);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 22px 44px rgba(15, 23, 42, 0.08);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient);
+      pointer-events: none;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .experience {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      align-items: start;
+    }
+
+    .experience-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .experience-item {
+      padding: 22px 24px;
+      border-radius: 20px;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+    }
+
+    .experience-item strong {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .experience-item span {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 64px 0 48px;
+      color: var(--muted);
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid rgba(37, 99, 235, 0.12);
+      margin-top: 96px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(14px);
+      align-items: center;
+      text-align: center;
+    }
+
+    footer > * {
+      width: min(1120px, 92vw);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      header nav a {
+        margin-left: 0;
+        margin-right: 18px;
+      }
+
+      .hero {
+        padding: 48px 0 72px;
+      }
+
+      .preview-card {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+<body id="topo">
+  <header>
+    <a class="brand" href="#topo">
+      <img src="icon-1024.png" alt="Logotipo Carvão Connect">
+      <span>Carvão Connect</span>
+    </a>
+    <nav>
+      <a href="#solucao">Solução</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#suporte">Suporte</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge">A nova era do carvão</div>
+      <h1>Conecte fornecedores e siderúrgicas em uma experiência única.</h1>
+      <p>Carvão Connect simplifica a compra e venda de carvão, oferecendo um ambiente claro, intuitivo e confiável para cada etapa da negociação.</p>
+      <div class="cta-group">
+        <a class="cta" href="#experiencia">Conheça a experiência</a>
+        <a class="cta cta-secondary" href="#funcionalidades">Explorar recursos</a>
+      </div>
+      <div class="preview-card">
+        <h2>Uma central leve, moderna e pronta para decisões rápidas</h2>
+        <p>Cadastros guiados, ações rápidas e conversas priorizadas mantêm equipes alinhadas, enquanto tabelas personalizadas colocam as condições certas sempre à mão.</p>
+      </div>
+    </section>
+
+    <section id="solucao">
+      <div class="section-title">A solução</div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Hub digital do mercado</h3>
+          <p>Reúna em um só lugar cadastro de parceiros, pedidos e atualizações de preço, com transparência para quem compra e quem vende.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Processos guiados de ponta a ponta</h3>
+          <p>Fluxos claros orientam cada etapa da jornada, da solicitação inicial até a aprovação final, diminuindo retrabalho e acelerando decisões.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Relacionamentos confiáveis</h3>
+          <p>Indicadores visuais e alertas mantêm cada negociação sob controle, fortalecendo parcerias estratégicas e o ritmo dos negócios.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <div class="section-title">Sobre o aplicativo</div>
+      <div class="experience">
+        <div class="experience-list">
+          <div class="experience-item">
+            <strong>Foco no essencial</strong>
+            <span>Experiência pensada exclusivamente para o mercado de carvão, com telas enxutas e linguagem direta.</span>
+          </div>
+          <div class="experience-item">
+            <strong>Visual leve e moderno</strong>
+            <span>Interface clara, tipografia elegante e cards suaves inspirados nas melhores referências de mobile design.</span>
+          </div>
+        </div>
+        <div class="experience-list">
+          <div class="experience-item">
+            <strong>Operação confiável</strong>
+            <span>Controles de acesso, indicadores visuais e alertas garantem que todas as equipes trabalhem com segurança e alinhamento.</span>
+          </div>
+          <div class="experience-item">
+            <strong>Pronto para crescer</strong>
+            <span>Roadmap inclui onboarding assistido, dados em tempo real e indicadores ampliados para sustentar a expansão do negócio.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="funcionalidades">
+      <div class="section-title">Funcionalidades em destaque</div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Autenticação para cada perfil</h3>
+          <p>Fluxo completo de login e cadastro pensado para fornecedores e siderúrgicas, com alternância ágil entre os perfis.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Ações rápidas no feed</h3>
+          <p>Menu inicial dá acesso imediato às tarefas essenciais, mantendo a operação sempre organizada.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Tabelas de preço dinâmicas</h3>
+          <p>Visualize e atualize faixas de densidade com valores PF/PJ e observações personalizadas conforme o perfil logado.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Conversas com status visual</h3>
+          <p>Painel de conversas recentes destaca prioridades com uso de cores, facilitando acordos em andamento.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="experiencia">
+      <div class="section-title">Experiência Carvão Connect</div>
+      <div class="experience">
+        <div class="experience-list">
+          <div class="experience-item">
+            <strong>Centralização completa</strong>
+            <span>Do cadastro à negociação, tudo acontece dentro do app, reduzindo ruídos e aumentando a confiança nos dados.</span>
+          </div>
+          <div class="experience-item">
+            <strong>Atualizações em tempo real</strong>
+            <span>Notificações mantêm fornecedores informados sempre que uma siderúrgica altera critérios ou preços.</span>
+          </div>
+        </div>
+        <div class="experience-list">
+          <div class="experience-item">
+            <strong>Gestão guiada por dados</strong>
+            <span>Indicadores em tempo real e alertas inteligentes mantêm a equipe informada sobre prazos, volumes e oportunidades.</span>
+          </div>
+          <div class="experience-item">
+            <strong>Preparado para crescer</strong>
+            <span>Próximos passos incluem onboarding dedicado, dados em tempo real e suporte a temas claro/escuro.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="suporte">
+      <div class="section-title">Suporte e confiança</div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Fale com a equipe</h3>
+          <p>Precisa de ajuda ou quer saber mais sobre o Carvão Connect? Envie um e-mail para <a href="mailto:gustavocostap11@gmail.com">gustavocostap11@gmail.com</a> e retornaremos o quanto antes.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Política de privacidade</h3>
+          <p>Transparência é parte da nossa cultura. Consulte nossa política de privacidade para entender como protegemos dados e garantimos segurança em cada interação.</p>
+          <p><a href="#politica-privacidade" class="cta cta-secondary" style="display:inline-flex;margin-top:16px;">Ler política</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="politica-privacidade">
+      <div class="section-title">Política de privacidade</div>
+      <div class="experience">
+        <div class="experience-list">
+          <div class="experience-item">
+            <strong>Coleta responsável</strong>
+            <span>Utilizamos apenas as informações essenciais para conectar fornecedores e siderúrgicas, sempre com consentimento e para fins operacionais claros.</span>
+          </div>
+          <div class="experience-item">
+            <strong>Uso transparente</strong>
+            <span>Dados são tratados para personalizar experiências, enviar notificações relevantes e manter o histórico de negociações seguro.</span>
+          </div>
+        </div>
+        <div class="experience-list">
+          <div class="experience-item">
+            <strong>Proteção contínua</strong>
+            <span>Aplicamos controles de acesso, monitoramento e boas práticas de segurança para salvaguardar informações sensíveis.</span>
+          </div>
+          <div class="experience-item">
+            <strong>Direitos garantidos</strong>
+            <span>Usuários podem solicitar atualização ou exclusão de dados e falar com nosso suporte a qualquer momento pelo e-mail oficial.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Carvão Connect. Todos os direitos reservados.</span>
+    <span>Landing page desenvolvida para apresentação em carvaoconnect.com.br.</span>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
